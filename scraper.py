@@ -12,11 +12,12 @@ def send_email_with_gmail(message: str) -> None:
     server.starttls()
     server.ehlo()
     server.login(os.environ["EMAIL"], os.environ["GMAIL_PASSWORD"])
-    server.sendmail(os.environ["EMAIL"], os.environ["EMAIL"],
-                    f"To: {os.environ['EMAIL']}\n"
-                    f"From: {os.environ['EMAIL']}\n"
-                    f"Subject: New HouseSeats Show\n\n{message}"
-                    )
+    message = (
+            f"To: {os.environ['EMAIL']}\n"
+            f"From: {os.environ['EMAIL']}\n"
+            f"Subject: New HouseSeats Show\n\n{message}"
+            ).encode("utf-8").strip()
+    server.sendmail(os.environ["EMAIL"], os.environ["EMAIL"], message)
     server.close()
 
 
