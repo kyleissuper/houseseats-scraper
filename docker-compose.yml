@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  scrape-houseseats:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ["python", "scraper.py"]
+    environment:
+      - EMAIL=$EMAIL
+      - HOUSESEATS_PASSWORD=$HOUSESEATS_PASSWORD
+      - GMAIL_PASSWORD=$GMAIL_PASSWORD
+    labels:
+      - "net.reddec.scheduler.cron=0 0 * * *"
+      - "net.reddec.scheduler.cron=12 0 * * *"
+
+  scheduler:
+    image: ghcr.io/reddec/compose-scheduler:1.0.0
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
