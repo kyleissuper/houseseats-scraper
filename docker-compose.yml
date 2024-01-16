@@ -15,7 +15,7 @@ services:
       - GMAIL_PASSWORD=$GMAIL_PASSWORD
     labels:
       - "net.reddec.scheduler.cron=0 0 * * *"
-      - "net.reddec.scheduler.cron=12 0 * * *"
+      - "net.reddec.scheduler.cron=0 12 * * *"
 
   scheduler:
     image: ghcr.io/reddec/compose-scheduler:1.0.0
