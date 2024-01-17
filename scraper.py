@@ -18,6 +18,7 @@ def load_cookies_and_update_headers(s: requests.Session) -> None:
         return
     with open(COOKIES_FILE, "r") as f:
         cookies = requests.utils.cookiejar_from_dict(json.load(f))
+        s.cookies.clear()
         s.cookies.update(cookies)
 
 
@@ -84,7 +85,7 @@ if __name__ == "__main__":
     s = requests.Session()
     load_cookies_and_update_headers(s)
     if not check_logged_in(s):
+        print("Not logged in. Updating cookies")
         log_in_and_save_cookies(s)
-        print("Updating cookies")
     scrape_shows_and_notify(s)
     print("Finished scraping")
