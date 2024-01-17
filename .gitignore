@@ -1,3 +1,4 @@
 *.show
 .envrc
 venv/
+data/cookies.json
