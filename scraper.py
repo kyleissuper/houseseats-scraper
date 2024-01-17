@@ -85,4 +85,6 @@ if __name__ == "__main__":
     load_cookies_and_update_headers(s)
     if not check_logged_in(s):
         log_in_and_save_cookies(s)
+        print("Updating cookies")
     scrape_shows_and_notify(s)
+    print("Finished scraping")
