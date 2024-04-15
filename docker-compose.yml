@@ -13,6 +13,7 @@ services:
       - EMAIL=$EMAIL
       - HOUSESEATS_PASSWORD=$HOUSESEATS_PASSWORD
       - GMAIL_PASSWORD=$GMAIL_PASSWORD
+      - BCC=$BCC
     labels:
       - "net.reddec.scheduler.cron=* * * * *"
 

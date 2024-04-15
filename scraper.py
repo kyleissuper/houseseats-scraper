@@ -40,8 +40,8 @@ def log_in_and_save_cookies(s: requests.Session) -> None:
         f.write(json.dumps(s.cookies.get_dict()))
 
 
-def send_email_with_gmail(message: str) -> None:
-    """Send an email with the given message to myself"""
+def send_email_with_gmail(message: str, bcc: list[str] = []) -> None:
+    """Send an email with the given message to myself and bcc others"""
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.ehlo()
     server.starttls()
@@ -50,6 +50,7 @@ def send_email_with_gmail(message: str) -> None:
     message = (
             f"To: {os.environ['EMAIL']}\n"
             f"From: {os.environ['EMAIL']}\n"
+            f"Bcc: {', '.join(bcc)}\n"
             f"Subject: New HouseSeats Show\n\n{message}"
             ).encode("utf-8").strip()
     server.sendmail(os.environ["EMAIL"], os.environ["EMAIL"], message)
@@ -78,7 +79,8 @@ def scrape_shows_and_notify(s: requests.Session) -> None:
     shows = soup.select("div.panel-heading p.text-center a")
     for show in shows:
         if upsert_show(show.text):
-            send_email_with_gmail(f"New show on houseseats: {show.text}")
+            send_email_with_gmail(f"New show on houseseats: {show.text}",
+                                  bcc=[os.environ["BCC"]])
 
 
 if __name__ == "__main__":

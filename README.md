@@ -4,5 +4,6 @@ Environment variables required:
 - EMAIL
 - HOUSESEATS_PASSWORD
 - GMAIL_PASSWORD
+- BCC (currently only takes a single email address...)
 
 Run once by directly running the python script, or schedule it with `docker compose up -d`
