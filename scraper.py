@@ -53,7 +53,7 @@ def send_email_with_gmail(message: str, bcc: list[str] = []) -> None:
             f"Bcc: {', '.join(bcc)}\n"
             f"Subject: New HouseSeats Show\n\n{message}"
             ).encode("utf-8").strip()
-    server.sendmail(os.environ["EMAIL"], os.environ["EMAIL"], message)
+    server.sendmail(os.environ["EMAIL"], [os.environ["EMAIL"]] + bcc, message)
     server.close()
 
 
